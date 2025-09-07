@@ -1,9 +1,13 @@
 const GRID_WIDTH = 960;
+const GRID_SIZE = 16;
+const CANVAS_BG = '#29303d';
 const SQUARE_CLASS = 'square';
+const canvas = document.querySelector('.canvas');
+const gridSizeBtn = document.querySelector('#grid-size-btn');
+const clearCanvasBtn = document.querySelector('#clear-canvas-btn');
 
-const container = document.querySelector('.container');
-
-// Track hover counts and colors for each square
+// Track progressive darkening effect for each square
+let gridSize = GRID_SIZE;
 let hoverCounts = {};
 let squareColors = {};
 
@@ -11,7 +15,15 @@ function generateSquareID(i, j) {
   return `${i}-${j}`;
 }
 
-// Generate random RGB color values
+function resetSquareGlobals() {
+  hoverCounts = {};
+  squareColors = {};
+}
+
+function updateGridSize(n) {
+  gridSize = n;
+}
+
 function generateRandomRGB() {
   return [255, 255, 255].map((item) => Math.floor(item * Math.random()));
 }
@@ -27,7 +39,7 @@ function handleSquareHover(square) {
     square.style.background = squareColors[squareID];
     square.style.opacity = 0.1;
   } else {
-    // Subsequent hovers: increase opacity up to maximum
+    // Subsequent hovers: increase opacity up to maximum of 10
     if (hoverCounts[squareID] < 10) {
       hoverCounts[squareID] += 1;
       square.style.opacity = hoverCounts[squareID] * 0.1;
@@ -35,31 +47,20 @@ function handleSquareHover(square) {
   }
 }
 
-function setSquareFlexBasis(square, size) {
-  square.style.flex = `1 1 ${size}px`;
-}
-
-function creteSquare(i, j) {
+function creteSquare(i, j, size) {
   let square = document.createElement('div');
   square.className = SQUARE_CLASS;
   square.id = generateSquareID(i, j);
-  container.appendChild(square);
+  canvas.appendChild(square);
+  square.style.flex = `1 1 ${size}px`;
   return square;
 }
 
-function createSquareText(square, i, j) {
-  let paragraph = document.createElement('p');
-  paragraph.textContent = generateSquareID(i, j);
-  square.appendChild(paragraph);
-}
-
-// Create n×n grid of interactive squares
 function createGrid(n) {
   let squareSize = Math.floor(GRID_WIDTH / n);
   for (i = 1; i <= n; i++) {
     for (j = 1; j <= n; j++) {
       let square = creteSquare(i, j, squareSize);
-      setSquareFlexBasis(square, squareSize);
       square.addEventListener('mouseenter', () => {
         handleSquareHover(square);
       });
@@ -67,4 +68,54 @@ function createGrid(n) {
   }
 }
 
-createGrid(16);
+function deleteSquares(n) {
+  for (i = 1; i <= n; i++) {
+    for (j = 1; j <= n; j++) {
+      squareID = generateSquareID(i, j);
+      let square = document.getElementById(squareID);
+      canvas.removeChild(square);
+    }
+  }
+}
+
+// Get valid grid size input from user (1-100)
+function getUserInput() {
+  let inputGridSize;
+  do {
+    let userInput = prompt('Enter grid size (1-100):');
+    if (userInput === null) break;
+    inputGridSize = parseInt(userInput);
+    if (isNaN(inputGridSize) || inputGridSize <= 0 || inputGridSize > 100) {
+      alert('Please enter a valid number between 1 and 100!');
+      inputGridSize = null;
+    }
+  } while (inputGridSize === null);
+  return inputGridSize;
+}
+
+function reDrawCanvas(inputGridSize) {
+  console.log(inputGridSize);
+  if (inputGridSize !== undefined && inputGridSize !== null) {
+    deleteSquares(gridSize);
+    resetSquareGlobals();
+    createGrid(inputGridSize);
+    updateGridSize(inputGridSize);
+  } 
+}
+
+// Reset all squares to canvas background color
+function clearCanvas(n) {
+  resetSquareGlobals();
+  for (i = 1; i <= n; i++) {
+    for (j = 1; j <= n; j++) {
+      id = generateSquareID(i, j);
+      square = document.getElementById(id);
+      square.style.background = CANVAS_BG;
+    }
+  }
+}
+
+// Initialize with default 16x16 grid
+createGrid(gridSize);
+gridSizeBtn.addEventListener('click', () => reDrawCanvas(getUserInput()));
+clearCanvasBtn.addEventListener('click', () => clearCanvas(gridSize));
