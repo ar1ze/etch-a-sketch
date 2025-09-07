@@ -10,6 +10,19 @@ body {
   display: flex;
   justify-content: space-around;
   margin-top: 12%;
+  background: #111827;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.title {
+  color: white;
+  font-size: 2.4rem;
+  font-weight: bold;
 }
 
 .container {
@@ -18,7 +31,8 @@ body {
   display: flex;
   flex-wrap: wrap;
   border-radius: 5px;
-  outline: 2px solid black;
+  outline: 10px solid #374050;
+  background: #29303d;
 }
 
 .square {
