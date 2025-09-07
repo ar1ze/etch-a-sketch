@@ -54,6 +54,10 @@ button {
   border-radius: 2px;
 }
 
+.buttons {
+  padding-bottom: 1.5rem;
+}
+
 #grid-size-btn {
   background: #1d4dd6;
   transition: all 0.2s ease;
