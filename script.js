@@ -58,14 +58,32 @@ function creteSquare(i, j, size) {
 
 function createGrid(n) {
   let squareSize = Math.floor(GRID_WIDTH / n);
+  let isDrawing = false; 
+
   for (i = 1; i <= n; i++) {
     for (j = 1; j <= n; j++) {
       let square = creteSquare(i, j, squareSize);
+
       square.addEventListener('mouseenter', () => {
-        handleSquareHover(square);
+        if (isDrawing) {
+          handleSquareHover(square);
+        }
+      });
+
+      square.addEventListener('mousedown', () => {
+        isDrawing = true;
+        handleSquareHover(square); 
+      });
+
+      square.addEventListener('mouseup', () => {
+        isDrawing = false;
       });
     }
   }
+
+  document.addEventListener('mouseup', () => {
+    isDrawing = false;
+  });
 }
 
 function deleteSquares(n) {
@@ -100,7 +118,7 @@ function reDrawCanvas(inputGridSize) {
     resetSquareGlobals();
     createGrid(inputGridSize);
     updateGridSize(inputGridSize);
-  } 
+  }
 }
 
 // Reset all squares to canvas background color
