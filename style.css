@@ -19,7 +19,7 @@ button {
   cursor: pointer;
   color: #fff;
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: 600;
   padding: 1rem 2rem;
   border-radius: 0.5rem;
   border: none;
@@ -28,7 +28,8 @@ button {
 .wrapper {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  align-items: center;
+  gap: 3rem;
 }
 
 .title {
@@ -38,8 +39,8 @@ button {
 }
 
 .canvas {
-  width: 960px;
-  height: 960px;
+  width: 640px;
+  height: 640px;
   display: flex;
   flex-wrap: wrap;
   border-radius: 5px;

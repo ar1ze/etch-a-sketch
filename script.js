@@ -1,4 +1,4 @@
-const GRID_WIDTH = 960;
+const GRID_WIDTH = 640;
 const GRID_SIZE = 16;
 const CANVAS_BG = '#29303d';
 const SQUARE_CLASS = 'square';
