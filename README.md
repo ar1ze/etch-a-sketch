@@ -7,7 +7,7 @@ An interactive digital Etch-a-Sketch built with vanilla JavaScript, featuring a 
 </div>
 
 ## Live Demo
-🎨 [Try the Etch-a-Sketch](https://ar1ze.github.io/odin-etch-a-sketch/)
+🎨 [Try the Etch-a-Sketch](https://ar1ze.github.io/etch-a-sketch/)
 
 ## Key Technologies & Concepts
 • JavaScript  
