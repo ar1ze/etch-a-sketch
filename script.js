@@ -58,7 +58,7 @@ function creteSquare(i, j, size) {
 
 function createGrid(n) {
   let squareSize = Math.floor(GRID_WIDTH / n);
-  let isDrawing = false; 
+  let isDrawing = false;
 
   for (i = 1; i <= n; i++) {
     for (j = 1; j <= n; j++) {
@@ -72,7 +72,7 @@ function createGrid(n) {
 
       square.addEventListener('mousedown', () => {
         isDrawing = true;
-        handleSquareHover(square); 
+        handleSquareHover(square);
       });
 
       square.addEventListener('mouseup', () => {
@@ -100,7 +100,9 @@ function deleteSquares(n) {
 function getUserInput() {
   let inputGridSize;
   do {
-    let userInput = prompt('Enter grid size (1-100):');
+    let userInput = prompt(
+      `Current grid size: ${gridSize}x${gridSize}\n\nEnter new grid size (1-100):`
+    );
     if (userInput === null) break;
     inputGridSize = parseInt(userInput);
     if (isNaN(inputGridSize) || inputGridSize <= 0 || inputGridSize > 100) {
